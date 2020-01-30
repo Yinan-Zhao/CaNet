@@ -67,7 +67,7 @@ parser.add_argument('-iter_time',
 options = parser.parse_args()
 
 
-data_dir = '/home/yz9244/PANet/data/pascal/VOCdevkit/VOC2012/'
+data_dir = '/home/yz9244/CaNet/data/pascal/VOCdevkit/VOC2012/'
 
 
 
