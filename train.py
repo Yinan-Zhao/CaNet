@@ -54,7 +54,7 @@ parser.add_argument('-fold',
 parser.add_argument('-gpu',
                     type=str,
                     help='gpu id to use',
-                    default='0,1')
+                    default='0')
 
 
 
@@ -67,7 +67,7 @@ parser.add_argument('-iter_time',
 options = parser.parse_args()
 
 
-data_dir = '/your/dataset/dir/VOCdevkit/VOC2012'
+data_dir = '/home/yz9244/PANet/data/pascal/VOCdevkit/VOC2012/'
 
 
 
