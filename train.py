@@ -12,7 +12,7 @@ from dataset_mask_train import Dataset as Dataset_train
 from dataset_mask_val import Dataset as Dataset_val
 import os
 import torch
-from network import Res_Deeplab
+from one_shot_network import Res_Deeplab
 import torch.nn as nn
 import numpy as np
 
