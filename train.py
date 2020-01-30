@@ -100,8 +100,7 @@ cudnn.enabled = True
 model = Res_Deeplab(num_classes=num_class)
 #load resnet-50 preatrained parameter
 model = load_resnet50_param(model, stop_layer='layer4')
-model.cuda()
-#model=nn.DataParallel(model,[3])
+model=nn.DataParallel(model,[0,1])
 
 # disable the  gradients of not optomized layers
 turn_off(model)
