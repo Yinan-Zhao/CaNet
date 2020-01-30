@@ -1,7 +1,7 @@
 import torchvision
 import os
 import torch
-from pylab import plt
+#from pylab import plt
 
 
 def load_resnet50_param(model, stop_layer='layer4'):
@@ -83,7 +83,7 @@ def loss_calc_v1(pred, label, gpu):
 
 
 
-def plot_loss(checkpoint_dir,loss_list,save_pred_every):
+'''def plot_loss(checkpoint_dir,loss_list,save_pred_every):
     x=range(0,len(loss_list)*save_pred_every,save_pred_every)
     y=loss_list
     plt.switch_backend('agg')
@@ -104,7 +104,7 @@ def plot_iou(checkpoint_dir,iou_list):
     plt.legend()
     plt.grid()
     plt.savefig(os.path.join(checkpoint_dir,'iou_fig.pdf'))
-    plt.close()
+    plt.close()'''
 
 
 

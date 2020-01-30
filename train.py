@@ -202,7 +202,7 @@ for epoch in range(0,num_epoch):
         if i_iter % save_pred_every == 0 and i_iter != 0:
 
             loss_list.append(tempory_loss / save_pred_every)
-            plot_loss(checkpoint_dir, loss_list, save_pred_every)
+            #plot_loss(checkpoint_dir, loss_list, save_pred_every)
             np.savetxt(os.path.join(checkpoint_dir, 'loss_history.txt'), np.array(loss_list))
             tempory_loss = 0
 
@@ -261,7 +261,7 @@ for epoch in range(0,num_epoch):
 
 
         iou_list.append(best_iou)
-        plot_iou(checkpoint_dir, iou_list)
+        #plot_iou(checkpoint_dir, iou_list)
         np.savetxt(os.path.join(checkpoint_dir, 'iou_history.txt'), np.array(iou_list))
         if best_iou>highest_iou:
             highest_iou = best_iou
