@@ -1,0 +1,49 @@
+DATASET:
+  name: "VOC"
+  data_dir: "./data/pascal/VOCdevkit/VOC2012/"
+  data_split: "trainaug"
+  input_size: (256, 256)
+  padding_constant: 8
+  segm_downsampling_rate: 8
+
+
+MODEL:
+  arch_encoder: "resnet50dilated"
+  memory_encoder_arch: "resnet18dilated_noBN"
+  arch_attention: "attention_double"
+  arch_decoder: "c1_double"
+  mask_feat_downsample_rate: 1
+  att_mat_downsample_rate: 1
+  fc_dim: 2048
+  att_fc_dim: 512
+  normalize_key: True
+  p_scalar: 1.0
+
+TRAIN:
+  n_iters: 60000
+  start_iter: 0
+  n_batch: 8
+  optim: "SGD"
+  lr_encoder: 0.02
+  lr_decoder: 0.02
+  lr_pow: 0.9
+  beta1: 0.9
+  weight_decay: 1e-4
+  deep_sup_scale: 0.4
+  fix_bn: False
+  workers: 4
+  disp_iter: 20
+  seed: 304
+  save_freq: 500
+  permute_labels: False
+
+VAL:
+  n_runs: 3
+  visualize: False
+  checkpoint: "iter_10000.pth"
+
+TEST:
+  checkpoint: "epoch_25.pth"
+  result: "./"
+
+DIR: "ckpt/resnet50dilated-resnet18dilated-noBN-c1-attDouble-normKey-voc"
