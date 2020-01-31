@@ -103,10 +103,10 @@ class Bottleneck(nn.Module):
 
 
 class ResNet(nn.Module):
-    def __init__(self, block, layers, num_classes):
+    def __init__(self, block, layers, num_classes, aspp=True):
 
 
-
+        self.aspp = aspp
         self.inplanes = 64
         super(ResNet, self).__init__()
         self.conv1 = nn.Conv2d(3, 64, kernel_size=7, stride=2, padding=3,
@@ -228,7 +228,7 @@ class ResNet(nn.Module):
     def _make_pred_layer(self,block, dilation_series, padding_series,num_classes):
         return block(dilation_series,padding_series,num_classes)
 
-    def forward(self, query_rgb,support_rgb,support_mask,history_mask):
+    def forward(self, query_rgb,support_rgb,support_mask):
         # important: do not optimize the RESNET backbone
         query_rgb = self.conv1(query_rgb)
         query_rgb = self.bn1(query_rgb)
@@ -271,24 +271,17 @@ class ResNet(nn.Module):
                          kernel_size=support_rgb.shape[-2:]) * h * w / area
         z = z.expand(-1, -1, feature_size[0], feature_size[1])  # tile for cat
 
-
-        history_mask=F.interpolate(history_mask,feature_size,mode='bilinear',align_corners=True)
-
         out=torch.cat([query_rgb,z],dim=1)
         out = self.layer55(out)
-        out_plus_history=torch.cat([out,history_mask],dim=1)
-        out = out + self.residule1(out_plus_history)
-        out = out + self.residule2(out)
-        out = out + self.residule3(out)
 
 
+        if self.aspp:
 
-
-        global_feature=F.avg_pool2d(out,kernel_size=feature_size)
-        global_feature=self.layer6_0(global_feature)
-        global_feature=global_feature.expand(-1,-1,feature_size[0],feature_size[1])
-        out=torch.cat([global_feature,self.layer6_1(out),self.layer6_2(out),self.layer6_3(out),self.layer6_4(out)],dim=1)
-        out=self.layer7(out)
+            global_feature=F.avg_pool2d(out,kernel_size=feature_size)
+            global_feature=self.layer6_0(global_feature)
+            global_feature=global_feature.expand(-1,-1,feature_size[0],feature_size[1])
+            out=torch.cat([global_feature,self.layer6_1(out),self.layer6_2(out),self.layer6_3(out),self.layer6_4(out)],dim=1)
+            out=self.layer7(out)
 
         out=self.layer9(out)
         return out
