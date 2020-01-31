@@ -304,7 +304,8 @@ for epoch in range(0,num_epoch):
     begin_time = time.time()
     tqdm_gen = tqdm.tqdm(trainloader)
 
-    for i_iter, batch in enumerate(tqdm_gen):
+    #for i_iter, batch in enumerate(tqdm_gen):
+    for i_iter, batch in enumerate(10):
 
         feed_dict = data_preprocess(batch, cfg, False)
         _, _, _, _, _,sample_class,index= batch
@@ -341,7 +342,7 @@ for epoch in range(0,num_epoch):
 
         valset.history_mask_list=[None] * 1000
         best_iou = 0
-        for eva_iter in range(options.iter_time):
+        for eva_iter in range(5):
             all_inter, all_union, all_predict = [0] * 5, [0] * 5, [0] * 5
             for i_iter, batch in enumerate(valloader):
                 feed_dict = data_preprocess(batch, cfg, True)
