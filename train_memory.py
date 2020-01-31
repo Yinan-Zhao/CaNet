@@ -287,7 +287,7 @@ trainloader = data.DataLoader(dataset, batch_size=options.bs, shuffle=True, num_
 # this only a quick val dataset where all images are 321*321.
 valset = Dataset_val(data_dir=data_dir, fold=options.fold, input_size=input_size, normalize_mean=IMG_MEAN,
                  normalize_std=IMG_STD)
-valloader = data.DataLoader(valset, batch_size=options.bs_val, input_size=input_size, shuffle=False, num_workers=4,
+valloader = data.DataLoader(valset, batch_size=options.bs_val, shuffle=False, num_workers=4,
                             drop_last=False)
 
 save_pred_every = len(trainloader)
