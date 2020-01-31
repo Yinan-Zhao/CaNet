@@ -13,7 +13,7 @@ def segm_one_hot(segm):
     size = segm.size()
     oneHot_size = (2, size[1], size[2])
     segm_oneHot = torch.FloatTensor(torch.Size(oneHot_size)).zero_()
-    segm_oneHot = segm_oneHot.scatter_(0, segm, 1.0)
+    segm_oneHot = segm_oneHot.scatter_(0, segm.long(), 1.0)
     return segm_oneHot
 
 
