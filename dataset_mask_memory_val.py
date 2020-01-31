@@ -147,8 +147,6 @@ class Dataset(object):
                               os.path.join(self.data_dir, 'Binary_map_aug', 'val', str(sample_class),
                                            query_name + '.png')))))
 
-        print(scaled_size)
-        print(input_size)
         margin_h = random.randint(0, scaled_size - input_size)
         margin_w = random.randint(0, scaled_size - input_size)
 
