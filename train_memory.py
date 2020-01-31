@@ -305,8 +305,6 @@ for epoch in range(0,num_epoch):
     tqdm_gen = tqdm.tqdm(trainloader)
 
     for i_iter, batch in enumerate(tqdm_gen):
-        if i_iter >= 10:
-            break
 
         feed_dict = data_preprocess(batch, cfg, False)
         _, _, _, _, _,sample_class,index= batch
