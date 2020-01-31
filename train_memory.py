@@ -355,10 +355,6 @@ for epoch in range(0,num_epoch):
                 
 
                 _, pred_label = torch.max(pred, 1)
-                print('pred_label')
-                print(pred_label.shape)
-                print('query_mask')
-                print(query_mask.shape)
                 inter_list, union_list, _, num_predict_list = get_iou_v1(query_mask, pred_label)
                 for j in range(query_mask.shape[0]):#batch size
                     all_inter[sample_class[j] - (options.fold * 5 + 1)] += inter_list[j]
