@@ -62,7 +62,7 @@ parser.add_argument('-iter_time',
                     type=int,
                     default=5)
 
-parser.add_argument('-aspp',
+parser.add_argument('--aspp',
                     action='store_true',
                     help="use aspp module")
 
