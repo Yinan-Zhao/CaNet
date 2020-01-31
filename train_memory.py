@@ -176,7 +176,6 @@ options = parser.parse_args()
 args = options
 
 cfg.merge_from_file(args.cfg)
-cfg.merge_from_list(args.opts)
 cfg.memory_enc_pretrained = args.memory_enc_pretrained
 
 checkpoint_dir = cfg.DIR
