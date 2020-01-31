@@ -225,7 +225,7 @@ if cfg.MODEL.memory_encoder_arch:
         arch=cfg.MODEL.memory_encoder_arch.lower(),
         fc_dim=cfg.MODEL.fc_dim,
         weights=cfg.MODEL.weights_enc_memory,
-        num_class=cfg.TASK.n_ways+1,
+        num_class=1,
         RGB_mask_combine_val=cfg.DATASET.RGB_mask_combine_val,
         segm_downsampling_rate=cfg.DATASET.segm_downsampling_rate)
 else:
@@ -234,7 +234,7 @@ else:
             arch=cfg.MODEL.arch_encoder.lower()+'_nobn',
             fc_dim=cfg.MODEL.fc_dim,
             weights=cfg.MODEL.weights_enc_memory,
-            num_class=cfg.TASK.n_ways+1,
+            num_class=1,
             RGB_mask_combine_val=cfg.DATASET.RGB_mask_combine_val,
             segm_downsampling_rate=cfg.DATASET.segm_downsampling_rate)
     else:
@@ -242,7 +242,7 @@ else:
             arch=cfg.MODEL.arch_encoder.lower(),
             fc_dim=cfg.MODEL.fc_dim,
             weights=cfg.MODEL.weights_enc_memory,
-            num_class=cfg.TASK.n_ways+1,
+            num_class=1,
             RGB_mask_combine_val=cfg.DATASET.RGB_mask_combine_val,
             segm_downsampling_rate=cfg.DATASET.segm_downsampling_rate,
             pretrained=cfg.memory_enc_pretrained)
@@ -258,7 +258,7 @@ net_att_memory = ModelBuilder.build_att_memory(
 net_decoder = ModelBuilder.build_decoder(
     arch=cfg.MODEL.arch_decoder.lower(),
     fc_dim=cfg.MODEL.fc_dim,
-    num_class=cfg.TASK.n_ways+1,
+    num_class=2,
     weights=cfg.MODEL.weights_decoder)
 
 crit = nn.NLLLoss(ignore_index=255)
