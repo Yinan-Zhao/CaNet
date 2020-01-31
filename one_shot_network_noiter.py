@@ -289,8 +289,8 @@ class ResNet(nn.Module):
 
 
 
-def Res_Deeplab(num_classes=2):
-    model = ResNet(Bottleneck,[3, 4, 6, 3], num_classes)
+def Res_Deeplab(num_classes=2, aspp=True):
+    model = ResNet(Bottleneck,[3, 4, 6, 3], num_classes, aspp)
     return model
 
 
