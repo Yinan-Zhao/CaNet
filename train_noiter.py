@@ -183,7 +183,7 @@ for epoch in range(0,num_epoch):
 
         optimizer.zero_grad()
 
-        pred=model(query_rgb, support_rgb, support_mask,history_mask)
+        pred=model(query_rgb, support_rgb, support_mask)
         pred_softmax=F.softmax(pred,dim=1).data.cpu()
 
         #update history mask
@@ -232,7 +232,7 @@ for epoch in range(0,num_epoch):
                 query_mask = query_mask[:, 0, :, :]  # remove the second dim,change formation for crossentropy use
                 history_mask = (history_mask).cuda(0)
 
-                pred = model(query_rgb, support_rgb, support_mask,history_mask)
+                pred = model(query_rgb, support_rgb, support_mask)
                 pred_softmax = F.softmax(pred, dim=1).data.cpu()
 
                 # update history mask
