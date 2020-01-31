@@ -491,7 +491,6 @@ class SegmentationAttentionSeparateModule(SegmentationModuleBase):
             else:
                 feature = torch.cat((qval, qread), dim=1)
             pred = self.decoder([feature], segSize=segSize)
-            print(segSize)
             if self.debug:
                 return pred, qread, qval, qk_b, mk_b, mv_b, p, feature_enc, feature_memory
             else:

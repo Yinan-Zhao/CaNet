@@ -348,7 +348,9 @@ for epoch in range(0,num_epoch):
             for i_iter, batch in enumerate(valloader):
                 feed_dict = data_preprocess(batch, cfg, True)
                 _, query_mask, _, _, _, sample_class, index = batch
+                net_decoder.use_softmax = True
                 pred_softmax = segmentation_module(feed_dict, segSize=input_size)
+                net_decoder.use_softmax = False
                 pred = pred_softmax.cpu()
                 
 
