@@ -37,8 +37,8 @@ def data_preprocess(sample_batched, cfg, val=False):
     feed_dict = {}
     feed_dict['img_data'] = query_rgb.cuda()
     if not val:
-        query_mask = nn.functional.interpolate(query_mask, size=(input_size//cfg.DATASET.segm_downsampling_rate,
-            input_size//cfg.DATASET.segm_downsampling_rate), mode='nearest')
+        query_mask = nn.functional.interpolate(query_mask, size=(input_size[0]//cfg.DATASET.segm_downsampling_rate,
+            input_size[1]//cfg.DATASET.segm_downsampling_rate), mode='nearest')
     feed_dict['seg_label'] = query_mask[:,0,:,:].long().cuda() 
 
 
