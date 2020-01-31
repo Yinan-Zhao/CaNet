@@ -280,7 +280,7 @@ optimizers = create_optimizers(nets, cfg)
 
 # trainset
 dataset = Dataset_train(data_dir=data_dir, fold=options.fold, input_size=input_size, normalize_mean=IMG_MEAN,
-                  normalize_std=IMG_STD,prob=options.prob)
+                  normalize_std=IMG_STD)
 trainloader = data.DataLoader(dataset, batch_size=options.bs, shuffle=True, num_workers=4)
 
 # valset
