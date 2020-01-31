@@ -49,4 +49,4 @@ TEST:
   checkpoint: "epoch_25.pth"
   result: "./"
 
-DIR: "ckpt/resnet18dilated-c1-attDouble-normKey-featAggre-noLabel-voc"
+DIR: "ckpt/resnet18dilated-c1-attDouble-normKey-featAggre-noLabel-voc-pScalar1e0"
