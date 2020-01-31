@@ -26,7 +26,6 @@ IMG_STD = [0.229, 0.224, 0.225]
 num_class = 2
 num_epoch = 200
 input_size = (328, 328)
-batch_size = options.bs
 weight_decay = 0.0005
 momentum = 0.9
 power = 0.9
@@ -283,7 +282,7 @@ optimizers = create_optimizers(nets, cfg)
 # trainset
 dataset = Dataset_train(data_dir=data_dir, fold=options.fold, input_size=input_size, normalize_mean=IMG_MEAN,
                   normalize_std=IMG_STD,prob=options.prob)
-trainloader = data.DataLoader(dataset, batch_size=batch_size, shuffle=True, num_workers=4)
+trainloader = data.DataLoader(dataset, batch_size=options.bs, shuffle=True, num_workers=4)
 
 # valset
 # this only a quick val dataset where all images are 321*321.
