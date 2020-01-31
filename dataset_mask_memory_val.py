@@ -101,7 +101,7 @@ class Dataset(object):
         input_size = self.input_size[0]
         # random scale and crop for support
         #scaled_size = int(random.uniform(1,1.5)*input_size)
-        scaled_size = input_size + 1
+        scaled_size = input_size 
         scale_transform_mask = torchvision.transforms.Resize([scaled_size, scaled_size], interpolation=Image.NEAREST)
         scale_transform_rgb = torchvision.transforms.Resize([scaled_size, scaled_size], interpolation=Image.BILINEAR)
         flip_flag = random.random()
@@ -127,7 +127,7 @@ class Dataset(object):
         support_mask = segm_one_hot(support_mask)
 
         # random scale and crop for query
-        scaled_size = 321
+        #scaled_size = 321
 
         scale_transform_mask = torchvision.transforms.Resize([scaled_size, scaled_size], interpolation=Image.NEAREST)
         scale_transform_rgb = torchvision.transforms.Resize([scaled_size, scaled_size], interpolation=Image.BILINEAR)
