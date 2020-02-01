@@ -56,6 +56,11 @@ parser.add_argument('-gpu',
                     help='gpu id to use',
                     default='0')
 
+parser.add_argument('-checkpoint_dir',
+                    type=str,
+                    help='checkpoint directory',
+                    default='checkpoint')
+
 
 
 parser.add_argument('-iter_time',
@@ -112,7 +117,7 @@ turn_off(model)
 
 
 
-checkpoint_dir = 'checkpoint/fo=%d/'% options.fold
+checkpoint_dir = 'ckpt/%s/fo=%d/' % (options.checkpoint_dir, options.fold)
 check_dir(checkpoint_dir)
 
 
