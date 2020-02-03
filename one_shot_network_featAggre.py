@@ -221,7 +221,7 @@ class ResNet(nn.Module):
             qk_b = qkey[b,:,qmask[b,0]] # dk, Nq
             mk_b = mkey[b,:,mmask[b,0]] # dk, Nm
             mv_b = mval[b,:,mmask[b,0]] # dv, Nm 
-            print(mv_b.shape)
+            #print(mv_b.shape)
 
             p = torch.mm(torch.transpose(mk_b, 0, 1), qk_b) # Nm, Nq
             #p = p / math.sqrt(Dk)
@@ -276,6 +276,10 @@ class ResNet(nn.Module):
         support_read = self.maskRead(query_key, query_rgb, qmask, support_key, support_rgb, mmask)
 
         out=torch.cat([query_rgb,support_read],dim=1)
+        print('out')
+        print(out.shape)
+        print(query_rgb.shape)
+        print(support_read.shape)
         out = self.layer55(out)
 
         if self.aspp:
