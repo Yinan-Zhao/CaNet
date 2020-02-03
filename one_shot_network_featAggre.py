@@ -271,7 +271,7 @@ class ResNet(nn.Module):
         support_rgb = self.layer5(support_rgb)
 
         support_mask = F.interpolate(support_mask, support_rgb.shape[-2:], mode='nearest')
-        qmask = torch.ones_like(qkey)[:,0:1] > 0.
+        qmask = torch.ones_like(query_key)[:,0:1] > 0.
         mmask = support_mask > 0.5
         support_read = self.maskRead(query_key, query_rgb, qmask, support_key, support_rgb, mmask)
 
