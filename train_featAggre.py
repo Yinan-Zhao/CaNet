@@ -89,8 +89,6 @@ os.environ['CUDA_VISIBLE_DEVICES'] = options.gpu
 torch.backends.cudnn.benchmark = True
 
 
-
-
 IMG_MEAN = [0.485, 0.456, 0.406]
 IMG_STD = [0.229, 0.224, 0.225]
 num_class = 2
