@@ -87,6 +87,27 @@ def get_10x_lr_params(model):
         for i in b[j]:
             yield i
 
+def get_10x_lr_featAggre_params(model):
+    """
+    get layers for optimization
+    """
+
+    b = []
+    b.append(model.layer5.parameters())
+    b.append(model.layer55.parameters())
+    b.append(model.layer6_0.parameters())
+    b.append(model.layer6_1.parameters())
+    b.append(model.layer6_2.parameters())
+    b.append(model.layer6_3.parameters())
+    b.append(model.layer6_4.parameters())
+    b.append(model.layer7.parameters())
+    b.append(model.layer9.parameters())
+    b.append(model.key_conv.parameters())
+
+    for j in range(len(b)):
+        for i in b[j]:
+            yield i
+
 
 
 
