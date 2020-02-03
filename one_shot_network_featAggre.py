@@ -221,7 +221,6 @@ class ResNet(nn.Module):
             qk_b = qkey[b,:,qmask[b,0]] # dk, Nq
             mk_b = mkey[b,:,mmask[b,0]] # dk, Nm
             mv_b = mval[b,:,mmask[b,0]] # dv, Nm 
-            print(mv_b.shape)
 
             p = torch.mm(torch.transpose(mk_b, 0, 1), qk_b) # Nm, Nq
             #p = p / math.sqrt(Dk)
