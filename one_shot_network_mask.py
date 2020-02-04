@@ -103,11 +103,12 @@ class Bottleneck(nn.Module):
 
 
 class ResNet(nn.Module):
-    def __init__(self, block, layers, num_classes, aspp=True, p_scalar=100.):
+    def __init__(self, block, layers, num_classes, aspp=True, p_scalar=100., normalize_key=False):
 
 
         self.aspp = aspp
         self.p_scalar = p_scalar
+        self.normalize_key = normalize_key
         self.inplanes = 64
         super(ResNet, self).__init__()
         self.conv1 = nn.Conv2d(3, 64, kernel_size=7, stride=2, padding=3,
@@ -281,6 +282,10 @@ class ResNet(nn.Module):
         #support_rgb = self.layer4(support_rgb)
         support_rgb = torch.cat([support_feat_layer2, support_rgb], dim=1)
         support_key = self.key_conv(support_rgb)
+
+        if self.normalize_key:
+            query_key = F.normalize(query_key, p=2, dim=1)
+            support_key = F.normalize(support_key, p=2, dim=1)
 
         support_mask_resize = F.interpolate(support_mask, support_rgb.shape[-2:], mode='nearest')
         support_mask_feat = self.mask_conv(support_mask)
