@@ -236,7 +236,7 @@ class ResNet(nn.Module):
         else:        
             return qread
 
-    def forward(self, query_rgb,support_rgb,support_mask):
+    def forward(self, query_rgb,support_rgb,support_mask, is_debug=False):
         # important: do not optimize the RESNET backbone
         query_rgb = self.conv1(query_rgb)
         query_rgb = self.bn1(query_rgb)
