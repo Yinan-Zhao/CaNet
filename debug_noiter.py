@@ -105,7 +105,7 @@ power = 0.9
 cudnn.enabled = True
 
 # Create network.
-model = Res_Deeplab(num_classes=num_class, aspp=options.aspp, p_scalar=options.p_scalar)
+model = Res_Deeplab(num_classes=num_class, aspp=options.aspp)
 #load resnet-50 preatrained parameter
 model = load_resnet50_param(model, stop_layer='layer4')
 model.cuda()
