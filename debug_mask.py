@@ -163,7 +163,7 @@ with torch.no_grad():
                 np.save('debug/qread-%04d-%s-%s.npy'%(count, query_name[0], support_name[0]), qread.detach().cpu().float().numpy())
                 np.save('debug/p-%04d-%s-%s.npy'%(count, query_name[0], support_name[0]), p.detach().cpu().float().numpy())
             else:
-                pred = model(query_rgb, support_rgb, support_mask, is_debug=True)
+                pred = model(query_rgb, support_rgb, support_mask)
 
             pred_softmax = F.softmax(pred, dim=1).data.cpu()
 
