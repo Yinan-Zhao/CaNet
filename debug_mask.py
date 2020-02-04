@@ -128,8 +128,6 @@ valset = Dataset_val(data_dir=data_dir, fold=options.fold, input_size=input_size
 valloader = data.DataLoader(valset, batch_size=options.bs_val, shuffle=False, num_workers=4,
                             drop_last=False)
 
-save_pred_every =len(trainloader)
-
 
 loss_list = []#track training loss
 iou_list = []#track validaiton iou
