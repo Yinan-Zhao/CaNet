@@ -219,7 +219,7 @@ for epoch in range(0,num_epoch):
             all_inter, all_union, all_predict = [0] * 5, [0] * 5, [0] * 5
             for i_iter, batch in enumerate(valloader):
 
-                query_rgb, query_mask, support_rgb, support_mask, history_mask, sample_class, index, query_name, support_name = batch
+                query_rgb, query_mask, support_rgb, support_mask, history_mask, sample_class, index = batch
 
                 query_rgb = (query_rgb).cuda(0)
                 support_rgb = (support_rgb).cuda(0)
