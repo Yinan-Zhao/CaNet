@@ -49,7 +49,40 @@ def turn_off(model):
     optim_or_not(model.layer2, False)
     optim_or_not(model.layer3, False)
 
+def turn_off_layer3(model):
+    '''optim_or_not(model.module.conv1, False)
+    optim_or_not(model.module.layer1, False)
+    optim_or_not(model.module.layer2, False)
+    optim_or_not(model.module.layer3, False)'''
+    optim_or_not(model.conv1, False)
+    optim_or_not(model.layer1, False)
+    optim_or_not(model.layer2, False)
 
+
+def get_10x_lr_layer3_params(model):
+    """
+    get layers for optimization
+    """
+
+    b = []
+    b.append(model.layer3.parameters())
+    b.append(model.layer5.parameters())
+    b.append(model.layer55.parameters())
+    b.append(model.layer6_0.parameters())
+    b.append(model.layer6_1.parameters())
+    b.append(model.layer6_2.parameters())
+    b.append(model.layer6_3.parameters())
+    b.append(model.layer6_4.parameters())
+    b.append(model.layer7.parameters())
+    b.append(model.layer9.parameters())
+    b.append(model.residule1.parameters())
+    b.append(model.residule2.parameters())
+    b.append(model.residule3.parameters())
+
+
+    for j in range(len(b)):
+        for i in b[j]:
+            yield i
 
 
 def get_10x_lr_params(model):
