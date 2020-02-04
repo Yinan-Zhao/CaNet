@@ -163,7 +163,7 @@ class Dataset(object):
 
 
 
-        return query_rgb, query_mask, support_rgb, support_mask,history_mask,sample_class,index
+        return query_rgb, query_mask, support_rgb, support_mask,history_mask,sample_class,index,query_name, support_name
 
     def flip(self, flag, img):
         if flag > 0.5:

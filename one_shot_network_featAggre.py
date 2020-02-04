@@ -202,7 +202,7 @@ class ResNet(nn.Module):
     def _make_pred_layer(self, block, dilation_series, padding_series,num_classes):
         return block(dilation_series,padding_series,num_classes)
 
-    def maskRead(self, qkey, qval, qmask, mkey, mval, mmask):
+    def maskRead(self, qkey, qval, qmask, mkey, mval, mmask, is_debug=False):
         '''
         read for *mask area* of query from *mask area* of memory
         '''
@@ -231,7 +231,10 @@ class ResNet(nn.Module):
             # qval[b,:,qmask[b,0]] = read # dv, Nq
             qread[b,:,qmask[b,0]] = qread[b,:,qmask[b,0]] + read # dv, Nq
             
-        return qread
+        if is_debug:
+            return qread, qk_b, mk_b, mv_b, p
+        else:        
+            return qread
 
     def forward(self, query_rgb,support_rgb,support_mask):
         # important: do not optimize the RESNET backbone
@@ -272,7 +275,10 @@ class ResNet(nn.Module):
         support_mask = F.interpolate(support_mask, support_rgb.shape[-2:], mode='nearest')
         qmask = torch.ones_like(query_key)[:,0:1] > 0.
         mmask = support_mask > 0.5
-        support_read = self.maskRead(query_key, query_rgb, qmask, support_key, support_rgb, mmask)
+        if is_debug:
+            support_read, qk_b, mk_b, mv_b, p = self.maskRead(query_key, query_rgb, qmask, support_key, support_rgb, mmask, True)
+        else:
+            support_read = self.maskRead(query_key, query_rgb, qmask, support_key, support_rgb, mmask)
 
         out=torch.cat([query_rgb,support_read],dim=1)
         out = self.layer55(out)
@@ -286,7 +292,10 @@ class ResNet(nn.Module):
             out=self.layer7(out)
 
         out=self.layer9(out)
-        return out
+        if is_debug:
+            return out, support_read, qk_b, mk_b, mv_b, p
+        else:
+            return out
 
 
 

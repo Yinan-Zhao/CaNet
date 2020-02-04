@@ -214,7 +214,7 @@ class ResNet(nn.Module):
     def _make_pred_layer(self, block, dilation_series, padding_series,num_classes):
         return block(dilation_series,padding_series,num_classes)
 
-    def maskRead(self, qkey, qval, qmask, mkey, mval, mmask):
+    def maskRead(self, qkey, qval, qmask, mkey, mval, mmask, is_debug=False):
         '''
         read for *mask area* of query from *mask area* of memory
         '''
@@ -242,10 +242,13 @@ class ResNet(nn.Module):
             read = torch.mm(mv_b, p) # dv, Nq
             # qval[b,:,qmask[b,0]] = read # dv, Nq
             qread[b,:,qmask[b,0]] = qread[b,:,qmask[b,0]] + read # dv, Nq
-            
-        return qread
 
-    def forward(self, query_rgb,support_rgb,support_mask):
+        if is_debug:
+            return qread, qk_b, mk_b, mv_b, p
+        else:        
+            return qread
+
+    def forward(self, query_rgb,support_rgb,support_mask, is_debug=False):
         # important: do not optimize the RESNET backbone
         query_rgb = self.conv1(query_rgb)
         query_rgb = self.bn1(query_rgb)
@@ -283,7 +286,10 @@ class ResNet(nn.Module):
         support_mask_feat = self.mask_conv(support_mask)
         qmask = torch.ones_like(query_key)[:,0:1] > 0.
         mmask = torch.ones_like(support_mask_resize)[:,0:1] > 0.
-        support_read = self.maskRead(query_key, query_rgb, qmask, support_key, support_mask_feat, mmask)
+        if is_debug:
+            support_read, qk_b, mk_b, mv_b, p = self.maskRead(query_key, query_rgb, qmask, support_key, support_mask_feat, mmask, True)
+        else:
+            support_read = self.maskRead(query_key, query_rgb, qmask, support_key, support_mask_feat, mmask)
 
         out=torch.cat([query_rgb,support_read],dim=1)
         out = self.layer55(out)
@@ -297,7 +303,10 @@ class ResNet(nn.Module):
             out=self.layer7(out)
 
         out=self.layer9(out)
-        return out
+        if is_debug:
+            return out, support_read, qk_b, mk_b, mv_b, p
+        else:
+            return out
 
 
 
