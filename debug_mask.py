@@ -116,7 +116,7 @@ turn_off(model)
 
 
 
-checkpoint = 'ckpt/%s/fo=%d/model/best.pth' % (options.checkpoint_dir, options.fold)
+checkpoint = 'ckpt/%s/fo=%d/model/best.pth' % (options.checkpoint_dir, 1)
 model.load_state_dict(torch.load(checkpoint, map_location=lambda storage, loc: storage), strict=False)
 
 
